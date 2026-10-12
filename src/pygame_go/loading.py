@@ -12,6 +12,7 @@ def loading(root_path=None):
         "sounds",
         "script",
         "factory",
+        "scenes",
     ]
 
     for directory in directories:
@@ -19,7 +20,7 @@ def loading(root_path=None):
         path.mkdir(parents=True, exist_ok=True)
 
         # Cria o __init__.py dentro da pasta script
-        if directory == "script":
+        if directory == "script" or directory == 'scenes':
             init_file = path / "__init__.py"
 
             if not init_file.exists():
