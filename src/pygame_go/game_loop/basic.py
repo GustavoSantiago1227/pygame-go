@@ -64,7 +64,7 @@ class Game:
 
         scene = self._scenes[name](
             self.load,
-            self.end_game,
+            self.close,
             self.WIDTH,
             self.HEIGHT
         )
@@ -97,7 +97,7 @@ class Game:
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
-                self.end_game()
+                self.close()
                 break
 
             if (
@@ -105,7 +105,7 @@ class Game:
                 and event.type == pygame.KEYDOWN
                 and event.key == pygame.K_ESCAPE
             ):
-                self.end_game()
+                self.close()
                 break
 
             if self._current:
@@ -121,7 +121,7 @@ class Game:
         if self._current:
             self._current.draw(self.screen)
 
-    def end_game(self):
+    def close(self):
         """Solicita o encerramento do jogo."""
 
         self.running = False
