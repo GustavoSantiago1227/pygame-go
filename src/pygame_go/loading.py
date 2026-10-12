@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def loading(root_path=None):
     """Cria a estrutura inicial de um projeto Pygame."""
 
@@ -30,13 +31,13 @@ def loading(root_path=None):
     main_content = """from pygame_go.game_loop.basic import Game
 
 game = Game(
-title="Meu Jogo",
-width=1280,
-height=720,
-fullscreen=False,
-fps=60,
-debug=True,
-screen_color=(30, 30, 40),
+    title="Meu Jogo",
+    width=1280,
+    height=720,
+    fullscreen=False,
+    fps=60,
+    debug=True,
+    screen_color=(30, 30, 40),
 )
 
 game.run()
@@ -51,5 +52,10 @@ game.run()
 
     return base_dir
 
-loading()
 
+def main():
+    loading()
+
+
+if __name__ == "__main__":
+    main()
