@@ -20,27 +20,20 @@ def loading(root_path=None):
     # Arquivo principal do jogo
     main_file = base_dir / "main.py"
 
-    main_content = '''from pygame_go.game_loop.basic import Game
-```
-    
-def main():
+    main_content = """from pygame_go.game_loop.basic import Game
+
 game = Game(
-title="Meu Jogo",
-width=1280,
-height=720,
-fullscreen=False,
-fps=60,
-debug=True,
-screen_color=(30, 30, 40),
+    title="Meu Jogo",
+    width=1280,
+    height=720,
+    fullscreen=False,
+    fps=60,
+    debug=True,
+    screen_color=(30, 30, 40),
 )
 
 
-game.run()
-
-
-if **name** == "**main**":
-main()
-    '''
+game.run()"""
 
     if not main_file.exists():
         main_file.write_text(main_content, encoding="utf-8")
