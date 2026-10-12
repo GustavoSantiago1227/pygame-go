@@ -3,7 +3,6 @@ from pathlib import Path
 def loading(root_path=None):
     """Cria a estrutura inicial de um projeto Pygame."""
 
-
     base_dir = Path(root_path or Path.cwd()).resolve()
 
     # Pastas principais do projeto
@@ -15,7 +14,15 @@ def loading(root_path=None):
     ]
 
     for directory in directories:
-        (base_dir / directory).mkdir(parents=True, exist_ok=True)
+        path = base_dir / directory
+        path.mkdir(parents=True, exist_ok=True)
+
+        # Cria o __init__.py dentro da pasta script
+        if directory == "script":
+            init_file = path / "__init__.py"
+
+            if not init_file.exists():
+                init_file.write_text("", encoding="utf-8")
 
     # Arquivo principal do jogo
     main_file = base_dir / "main.py"
@@ -23,18 +30,17 @@ def loading(root_path=None):
     main_content = """from pygame_go.game_loop.basic import Game
 
 game = Game(
-    title="Meu Jogo",
-    width=1280,
-    height=720,
-    fullscreen=False,
-    fps=60,
-    debug=True,
-    screen_color=(30, 30, 40),
+title="Meu Jogo",
+width=1280,
+height=720,
+fullscreen=False,
+fps=60,
+debug=True,
+screen_color=(30, 30, 40),
 )
 
-
-game.run()"""
-
+game.run()
+"""
     if not main_file.exists():
         main_file.write_text(main_content, encoding="utf-8")
         print("Arquivo criado: main.py")
@@ -45,8 +51,5 @@ game.run()"""
 
     return base_dir
 
-def main():
-    loading()
+loading()
 
-if __name__ == "__main__":
-    main()
