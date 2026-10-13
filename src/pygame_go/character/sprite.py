@@ -18,7 +18,7 @@ class Image(pygame.sprite.Sprite):
 
         #Verifica o tamanho
         if size:
-            image_origin = pygame.transform.scale(image_origin, (size))
+            image_origin = pygame.transform.scale(image_origin, size)
 
         #Verifica se precisa virar
         if flip:
@@ -60,7 +60,7 @@ class Flat(pygame.sprite.Sprite):
 
         # Verifica o tamanho
         if size:
-            image_origin = pygame.transform.scale(image_origin, (size))
+            image_origin = pygame.transform.scale(image_origin, size)
 
         # Verifica se precisa virar
         if flip:
