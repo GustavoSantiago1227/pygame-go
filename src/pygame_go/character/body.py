@@ -13,20 +13,24 @@ class Body:
         self._body = base_rect.copy()
         self._hit = base_rect.copy()
         self._hurt = base_rect.copy()
-        self._updateBody()
+
+        self._update_body()
 
     @property
     def body(self):
+        self._update_body()
         return self._body
 
     @body.setter
     def body(self, rect):
+
         x, y, w, h = rect
         self._body = pygame.Rect(0, 0, w, h)
         self.off_set['body'] = (x, y)
 
     @property
     def hit(self):
+        self._update_body()
         return self._hit
     @hit.setter
     def hit(self, rect):
@@ -36,6 +40,7 @@ class Body:
 
     @property
     def hurt(self):
+        self._update_body()
         return self._hurt
 
     @hurt.setter
@@ -44,7 +49,7 @@ class Body:
         self._hurt = pygame.Rect(0, 0, w, h)
         self.off_set['hurt'] = (x, y)
 
-    def _updateBody(self):
+    def _update_body(self):
         if not hasattr(self, 'rect'):
             return
 
