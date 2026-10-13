@@ -62,29 +62,29 @@ class Solid(Collider):
                 # Bateu a cabeça por baixo
                 sprite.body.top = self.body.bottom
                 vertical = 'top'
-                move_y = dy_top
+                move_y = self.body.bottom
             else:
                 # Caiu em cima (chão)
                 sprite.body.bottom = self.body.top
                 vertical = 'bottom'
-                move_y = -dy_bottom
+                move_y = self.body.top
             horizontal = None
         else:
             if dx_left < dx_right:
                 # Bateu na lateral esquerda do bloco
                 sprite.body.right = self.body.left
                 horizontal = 'right'
-                move_x = -dx_right
+                move_x = self.body.left
             else:
                 # Bateu na lateral direita do bloco
                 sprite.body.left = self.body.right
                 horizontal = 'left'
-                move_x = dx_left
+                move_x = self.body.right
             vertical = None
 
         #Move sprite
-        sprite.rect.y += move_y
-        sprite.rect.x += move_x
+        sprite.rect.y = move_y
+        sprite.rect.x = move_x
 
         return (horizontal, vertical)
 
