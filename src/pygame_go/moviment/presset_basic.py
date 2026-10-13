@@ -64,7 +64,8 @@ class Plataform(BasicMoviment):
 
     def on_air(self):
         """Está no ar"""
-        self.fly = True
+        if not self.in_jump:
+            self.fly = True
 
     def _update_moviment(self):
         """Atualiza a movimentação física (gravidade/pulo)"""
@@ -77,7 +78,6 @@ class Plataform(BasicMoviment):
             if self.jump_current > 0:
                 self.rect.y -= self.jump_current
                 self.jump_current -= 1
-
         self.on_air()
 
 
