@@ -38,31 +38,38 @@ class Solid(Collider):
         self.body = self.rect.copy()
 
     def collider(self, sprite):
-        """Verifica a colisão e expulsa o invasor do eixo correto"""
-        # Pega a hitbox do sprite de forma segura
+        """Resolve a colisão e retorna o lado do impacto."""
 
-        # Verifica se há colisão com o body do Collider
-        if not self.body.colliderect(sprite.body):
+        body = self.body
+        target = sprite.body
+
+        if not body.colliderect(target):
             return False
 
-        horizontal, vertical = None, None
-        if sprite.body.bottom > self.body.top:
-            vertical = 'bottom'
-            sprite.rect.bottom = self.body.top
+        # Calcula a sobreposição nos dois eixos
+        overlap_x = min(body.right, target.right) - max(body.left, target.left)
+        overlap_y = min(body.bottom, target.bottom) - max(body.top, target.top)
 
-        elif sprite.body.top < self.body.bottom:
-            vertical = 'top'
-            sprite.rect.top = self.body.bottom
+        # Resolve a colisão pelo eixo de menor sobreposição
+        if overlap_x < overlap_y:
+            if target.centerx < body.centerx:
+                sprite.rect.right = body.left
+                result = 'right'
+            else:
+                sprite.rect.left = body.right
+                result = 'left'
 
-        elif sprite.body.right > self.body.left:
-            horizontal = 'right'
-            sprite.rect.right = self.body.left
+        else:
+            if target.centery < body.centery:
+                sprite.rect.bottom = body.top
+                result = 'bottom'
+            else:
+                sprite.rect.top = body.bottom
+                result = 'top'
 
-        elif sprite.body.left < self.body.right:
-            horizontal = 'left'
-            sprite.rect.left = self.body.right
+        # Sincroniza a hitbox com o rect corrigido
+        sprite.body.center = sprite.rect.center
 
-        result = vertical if vertical else horizontal
         return result
 
 
