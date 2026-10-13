@@ -120,3 +120,6 @@ class Asset:
         self.static.clear()
         self.animation.clear()
         self._cache.clear()
+
+
+asset = Asset()

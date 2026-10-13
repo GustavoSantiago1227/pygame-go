@@ -62,9 +62,7 @@ asset_init() #Carrega as imagens do jogo
 game.run()
 """)
     create_archives(base_dir / 'game_asset.py', """
-from pygame_go.manager.asset import Asset
-
-asset = Asset()
+from pygame_go.manager.asset import asset
 
 def asset_init():
     #Instancia as imagens do jogo
