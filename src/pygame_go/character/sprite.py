@@ -70,7 +70,7 @@ class Flat(pygame.sprite.Sprite):
         image_small = pygame.transform.scale(
             image_origin, (image_origin.get_width(), image_origin.get_height() - self.flattening))
 
-        surface_image_small = pygame.Surface(image_small.get_size(), pygame.SRCALPHA)
+        surface_image_small = pygame.Surface(image_origin.get_size(), pygame.SRCALPHA)
         surface_image_small.blit(image_origin, (0, self.flattening))
 
         # Adiciona a image a uma coleção de animação
