@@ -51,8 +51,12 @@ class Unique(_BaseGroupManager):
         super().__init__(pygame.sprite.GroupSingle)
 
     def get(self, name):
-        """Retorna o grupo correspondente ao nome."""
+        """Retorna o sprite do grupo."""
         return list(self.tags.get(name))[0]
+
+    def get_group(self, name):
+        """Retorna grupo do sprite"""
+        return self.tags.get(name)
 
 
 # Instâncias globais prontas para uso
