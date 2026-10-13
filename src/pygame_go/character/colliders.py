@@ -35,7 +35,6 @@ class Collider:
 class Solid(Collider):
     def __init__(self, x=0, y=0):
         super().__init__(x, y)
-        self.body = self.rect.copy()
 
     def collider(self, sprite):
         """Resolve a colisão e retorna o lado do impacto."""
@@ -70,6 +69,19 @@ class Solid(Collider):
         # Sincroniza a hitbox com o rect corrigido
         sprite.body.center = sprite.rect.center
 
+        return result
+
+
+
+class Floor(Solid):
+    def __init__(self, x=0, y=0):
+        super().__init__(x, y)
+
+    def collider(self, sprite):
+        """Resolve a colisão e retorna o lado do impacto."""
+        result = super().collider(sprite)
+        if result == 'bottom' and hasattr(sprite, 'on_floor'):
+            sprite.on_floor()
         return result
 
 
