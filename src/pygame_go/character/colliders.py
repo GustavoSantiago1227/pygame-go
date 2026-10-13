@@ -33,7 +33,7 @@ class Collider:
 
 
 class Block(Collider):
-    def __init__(self, x, y):
+    def __init__(self, x=0, y=0):
         super().__init__(x, y)
         self.body = self.rect.copy()
 
@@ -54,6 +54,8 @@ class Block(Collider):
         min_x = min(dx_left, dx_right)
         min_y = min(dy_top, dy_bottom)
 
+        move_x, move_y = 0, 0
+
         # Decide se resolve no Eixo Vertical ou Horizontal com base na menor penetração
         if min_y < min_x:
             if dy_bottom < dy_top:
@@ -65,14 +67,14 @@ class Block(Collider):
                 # Caiu em cima (chão)
                 sprite.body.bottom = self.body.top
                 vertical = 'bottom'
-                move_y = dy_bottom
+                move_y = -dy_bottom
             horizontal = None
         else:
             if dx_left < dx_right:
                 # Bateu na lateral esquerda do bloco
                 sprite.body.right = self.body.left
                 horizontal = 'right'
-                move_x =dx_right
+                move_x = -dx_right
             else:
                 # Bateu na lateral direita do bloco
                 sprite.body.left = self.body.right
@@ -81,8 +83,8 @@ class Block(Collider):
             vertical = None
 
         #Move sprite
-        sprite.rect.y += vertical
-        sprite.rect.x += horizontal
+        sprite.rect.y += move_y
+        sprite.rect.x += move_x
 
         return (horizontal, vertical)
 
