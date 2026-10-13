@@ -45,6 +45,7 @@ def loading(root_path=None):
     create_archives(base_dir / 'main.py', """
 from pygame_go.game_loop.basic import Game
 from game_asset import asset_init
+from game_scenes import scenes_load
 
 game = Game(
     title="Meu Jogo",
@@ -74,9 +75,9 @@ def asset_init():
 
 
     create_archives(base_dir / 'game_scenes.py', """
-from scene.exemple import Exemple
+from scenes.exemple import Exemple
 
-def game_scenes():
+def scenes_load():
     scenes_data = {
         'exemple': Exemple,
     }
@@ -87,7 +88,7 @@ def game_scenes():
     create_archives(base_dir / 'scenes' / 'exemple.py', """
 from pygame_go.scene import Scene
 
-class Exempple(Scene):
+class Exemple(Scene):
     def preload(self):
         pass
 """)
