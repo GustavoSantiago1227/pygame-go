@@ -2,11 +2,11 @@ import pygame
 
 
 class BasicMoviment:
-    def moveX(self, vel):
+    def move_x(self, vel):
         """"Move o quadrado para os lados"""
         self.rect.x += vel
 
-    def moveY(self, vel):
+    def move_y(self, vel):
         """Move o quadradao para cima"""
         self.rect.y += vel
 
@@ -47,26 +47,26 @@ class Plataform(BasicMoviment):
     def pressed_keys(self, keys):
         """Recebe o keys do pygame.key.get_pressed()"""
         if self._corresponding_keys(keys, self.k_left):
-            self.moveX(-self.speed)
+            self.move_x(-self.speed)
 
         if self._corresponding_keys(keys, self.k_right):
-            self.moveX(self.speed)
+            self.move_x(self.speed)
 
         if self._corresponding_keys(keys, self.k_jump) and not self.fly:
             self.in_jump = True
 
-    def onFloor(self):
+    def on_floor(self):
         """Está no chão"""
         self.fly = False
         self.in_jump = False
         self.jump_current = self.jump_force
         self.gravity_current = 0
 
-    def onAir(self):
+    def on_air(self):
         """Está no ar"""
         self.fly = True
 
-    def _updateMoviment(self):
+    def _update_moviment(self):
         """Atualiza a movimentação física (gravidade/pulo)"""
 
         if self.fly:
@@ -78,7 +78,7 @@ class Plataform(BasicMoviment):
                 self.rect.y -= self.jump_current
                 self.jump_current -= 1
             else:
-                self.onAir()
+                self.on_air()
 
 
 class TopDown(BasicMoviment):
@@ -124,9 +124,9 @@ class TopDown(BasicMoviment):
             movement *= self.speed
 
             # Aplica o movimento nos eixos
-            self.moveX(movement.x)
-            self.moveY(movement.y)
+            self.move_x(movement.x)
+            self.move_y(movement.y)
 
-    def _updateMoviment(self):
+    def _update_moviment(self):
         """Jogos Top-Down geralmente não precisam de lógica de gravidade por frame aqui"""
         pass

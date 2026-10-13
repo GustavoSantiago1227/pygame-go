@@ -1,0 +1,58 @@
+import pygame
+
+
+class Body:
+    def __init__(self):
+        """Caixas de colisão ou o corpo do sprite"""
+        self.off_set = {
+            'body': (0, 0),
+            'hit': (0, 0),
+            'hurt': (0, 0),
+        }
+        base_rect = self.rect.copy() if hasattr(self, 'rect') else pygame.Rect(0, 0, 32, 32)
+        self._body = base_rect.copy()
+        self._hit = base_rect.copy()
+        self._hurt = base_rect.copy()
+        self._updateBody()
+
+    @property
+    def body(self):
+        return self._body
+
+    @body.setter
+    def body(self, rect):
+        x, y, w, h = rect
+        self._body = pygame.Rect(0, 0, w, h)
+        self.off_set['body'] = (x, y)
+
+    @property
+    def hit(self):
+        return self._hit
+    @hit.setter
+    def hit(self, rect):
+        x, y, w, h = rect
+        self._hit = pygame.Rect(0, 0, w, h)
+        self.off_set['hit'] = (x, y)
+
+    @property
+    def hurt(self):
+        return self._hurt
+
+    @hurt.setter
+    def hurt(self, rect):
+        x, y, w, h = rect
+        self._hurt = pygame.Rect(0, 0, w, h)
+        self.off_set['hurt'] = (x, y)
+
+    def _updateBody(self):
+        if not hasattr(self, 'rect'):
+            return
+
+        x, y = self.rect.topleft
+        body_off = self.off_set.get('body', (0, 0))
+        hit_off = self.off_set.get('hit', (0, 0))
+        hurt_off = self.off_set.get('hurt', (0, 0))
+
+        self._body.topleft = (x + body_off[0], y + body_off[1])
+        self._hit.topleft = (x + hit_off[0], y + hit_off[1])
+        self._hurt.topleft = (x + hurt_off[0], y + hurt_off[1])
