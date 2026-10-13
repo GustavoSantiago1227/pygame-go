@@ -32,7 +32,7 @@ class Plataform(BasicMoviment):
         # Teclas de ação
         self.k_left = _parse_key(left, [pygame.K_a, pygame.K_LEFT])
         self.k_right = _parse_key(right, [pygame.K_d, pygame.K_RIGHT])
-        self.k_jump = _parse_key(jump, [pygame.K_SPACE])
+        self.k_jump = _parse_key(jump, [pygame.K_SPACE, pygame.K_w])
 
         self.speed = speed
         self.jump_force = jump_force

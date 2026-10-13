@@ -38,6 +38,7 @@ def loading(root_path=None):
     packs = [
         'script',
         'scenes',
+        'factory'
     ]
     create_file_and_folder(base_dir, directories, packs)
 
