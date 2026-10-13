@@ -78,6 +78,8 @@ class Plataform(BasicMoviment):
             if self.jump_current > 0:
                 self.rect.y -= self.jump_current
                 self.jump_current -= 1
+            else:
+                self.in_jump = False
         self.on_air()
 
 
