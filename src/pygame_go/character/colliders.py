@@ -50,19 +50,20 @@ class Solid(Collider):
             vertical = 'bottom'
             sprite.rect.bottom = self.body.top
 
-        if sprite.body.top < self.body.bottom:
+        elif sprite.body.top < self.body.bottom:
             vertical = 'top'
             sprite.rect.top = self.body.bottom
 
-        if sprite.body.right > self.body.left:
+        elif sprite.body.right > self.body.left:
             horizontal = 'right'
             sprite.rect.right = self.body.left
 
-        if sprite.body.left < self.body.right:
+        elif sprite.body.left < self.body.right:
             horizontal = 'left'
             sprite.rect.left = self.body.right
 
-        return (horizontal, vertical)
+        result = vertical if vertical else horizontal
+        return result
 
 
 
