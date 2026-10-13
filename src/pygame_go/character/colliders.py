@@ -36,6 +36,34 @@ class Solid(Collider):
     def __init__(self, x=0, y=0):
         super().__init__(x, y)
 
+    def _overlap_(self, body, target):
+        overlap_x = min(body.right, target.right) - max(body.left, target.left)
+        overlap_y = min(body.bottom, target.bottom) - max(body.top, target.top)
+        return overlap_x, overlap_y
+
+    def resolve_overlap_x(self, body, target, sprite, overlap_x, overlap_y):
+        if overlap_x < overlap_y:
+            if target.centerx < body.centerx:
+                sprite.rect.right = body.left
+                result = 'right'
+            else:
+                sprite.rect.left = body.right
+                result = 'left'
+        else:
+            result = None
+        return result
+
+    def resolve_overlap_y(self, body, target, sprite):
+        if target.centery < body.centery:
+            sprite.rect.bottom = body.top
+            result = 'bottom'
+        else:
+            sprite.rect.top = body.bottom
+            result = 'top'
+        return result
+
+
+
     def collider(self, sprite):
         """Resolve a colisão e retorna o lado do impacto."""
 
@@ -46,25 +74,13 @@ class Solid(Collider):
             return False
 
         # Calcula a sobreposição nos dois eixos
-        overlap_x = min(body.right, target.right) - max(body.left, target.left)
-        overlap_y = min(body.bottom, target.bottom) - max(body.top, target.top)
+        overlap_x, overlap_y = self._overlap_(body, target)
 
         # Resolve a colisão pelo eixo de menor sobreposição
-        if overlap_x < overlap_y:
-            if target.centerx < body.centerx:
-                sprite.rect.right = body.left
-                result = 'right'
-            else:
-                sprite.rect.left = body.right
-                result = 'left'
+        result = self.resolve_overlap_x(body, target, sprite, overlap_x, overlap_y)
 
-        else:
-            if target.centery < body.centery:
-                sprite.rect.bottom = body.top
-                result = 'bottom'
-            else:
-                sprite.rect.top = body.bottom
-                result = 'top'
+        if not result:
+            result = self.resolve_overlap_y(body, target, sprite)
 
         # Sincroniza a hitbox com o rect corrigido
         sprite.body.center = sprite.rect.center
@@ -74,15 +90,29 @@ class Solid(Collider):
 
 
 class Floor(Solid):
-    def __init__(self, x=0, y=0):
-        super().__init__(x, y)
 
     def collider(self, sprite):
         """Resolve a colisão e retorna o lado do impacto."""
         result = super().collider(sprite)
-        if result == 'bottom' and hasattr(sprite, 'on_floor'):
+        if result == 'bottom' and getattr(sprite, 'on_floor'):
             sprite.on_floor()
         return result
+
+
+class OneWay(Floor):
+    def resolve_overlap_y(self, body, target, sprite):
+        if target.centery < body.centery:
+            sprite.rect.bottom = body.top
+            result = 'bottom'
+        else:
+            if not getattr(sprite, 'in_jump', False):
+                sprite.rect.top = body.bottom
+            result = 'top'
+        return result
+
+
+
+
 
 
 
