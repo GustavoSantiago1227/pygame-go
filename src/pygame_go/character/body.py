@@ -2,12 +2,12 @@ import pygame
 
 
 class Body:
-    def __init__(self):
+    def __init__(self, body=(0, 0), hit=(0, 0), hurt=(0, 0)):
         """Caixas de colisão ou o corpo do sprite"""
         self.off_set = {
-            'body': (0, 0),
-            'hit': (0, 0),
-            'hurt': (0, 0),
+            'body': body,
+            'hit': hit,
+            'hurt': hurt,
         }
         base_rect = self.rect.copy() if hasattr(self, 'rect') else pygame.Rect(0, 0, 32, 32)
         self._body = base_rect.copy()
