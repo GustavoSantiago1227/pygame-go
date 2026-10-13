@@ -5,7 +5,7 @@ class Timeout:
         self.current = start
         self._loop = loop
 
-    def update(self, callback=None, *args, **kwargs):
+    def update(self,):
         """Atualização do temporizador"""
 
         #Verifica se o temporizador encerrou
@@ -13,8 +13,6 @@ class Timeout:
             if self._loop:
                 self.current = self._start
 
-            if callback:
-                callback(*args, **kwargs)
             return True
         else:
             self.current -= 1
