@@ -54,3 +54,5 @@ class Unique(_BaseGroupManager):
 # Instâncias globais prontas para uso
 tags = Tag()
 unique = Unique()
+
+

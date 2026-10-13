@@ -1,5 +1,5 @@
 import pygame
-from group import tags, unique
+from pygame_go.group import tags, unique
 
 class Scene:
     def __init__(self, load, close, width, height):
@@ -7,8 +7,7 @@ class Scene:
         self.close = close
         self.screen_width = width
         self.screen_height = height
-        tags.reset()
-        unique.reset()
+
         self.preload()
 
     def preload(self):
