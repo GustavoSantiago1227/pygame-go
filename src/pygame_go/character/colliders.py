@@ -4,7 +4,7 @@ class Collider:
     def __init__(self, x, y, w, h, floor=False):
         super().__init__(x, y, w, h)
         self.off_set = (0, 0)
-        self.body = pygame.Rect(x, y, w, h)
+        self.body = self.rect.copy()
         self.floor = floor
 
     def _updateCollider(self):
