@@ -7,7 +7,7 @@ class BasicMoviment:
         self.rect.x += vel
 
     def moveY(self, vel):
-        """Move o quadradao para cima""""
+        """Move o quadradao para cima"""
         self.rect.y += vel
 
     def _corresponding_keys(self, keys, key_list):
