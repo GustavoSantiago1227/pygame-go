@@ -45,46 +45,24 @@ class Solid(Collider):
         if not self.body.colliderect(sprite.body):
             return False
 
-        # Calcula as penetrações nos quatro lados
-        dx_left = sprite.body.right - self.body.left
-        dx_right = self.body.right - sprite.body.left
-        dy_top = sprite.body.bottom - self.body.top
-        dy_bottom = self.body.bottom - sprite.body.top
+        horizontal, vertical = None, None
+        if sprite.body.bottom > self.body.top:
+            vertical = 'bottom'
+            sprite.rect.bottom = self.body.top
 
-        min_x = min(dx_left, dx_right)
-        min_y = min(dy_top, dy_bottom)
+        if sprite.body.top < self.body.bottom:
+            vertical = 'top'
+            sprite.rect.top = self.body.bottom
 
-        move_x, move_y = 0, 0
+        if sprite.body.right > self.body.left:
+            horizontal = 'right'
+            sprite.rect.right = self.body.left
 
-        # Decide se resolve no Eixo Vertical ou Horizontal com base na menor penetração
-        if min_y < min_x:
-            if dy_bottom < dy_top:
-                # Bateu a cabeça por baixo
-                sprite.body.top = self.body.bottom
-                vertical = 'top'
-                move_y = self.body.bottom
-            else:
-                # Caiu em cima (chão)
-                sprite.body.bottom = self.body.top
-                vertical = 'bottom'
-                move_y = self.body.top
-            horizontal = None
-        else:
-            if dx_left < dx_right:
-                # Bateu na lateral esquerda do bloco
-                sprite.body.right = self.body.left
-                horizontal = 'right'
-                move_x = self.body.left
-            else:
-                # Bateu na lateral direita do bloco
-                sprite.body.left = self.body.right
-                horizontal = 'left'
-                move_x = self.body.right
-            vertical = None
-
-        #Move sprite
-        sprite.rect.y = move_y
-        sprite.rect.x = move_x
+        if sprite.body.left < self.body.right:
+            horizontal = 'left'
+            sprite.rect.left = self.body.right
 
         return (horizontal, vertical)
+
+
 
