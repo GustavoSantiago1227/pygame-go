@@ -42,10 +42,9 @@ def loading(root_path=None):
     create_file_and_folder(base_dir, directories, packs)
 
     #Cria o main
-    create_archives(base_dir / 'main.py', """
-from pygame_go.game_loop.basic import Game
+    create_archives(base_dir / 'main.py', """from pygame_go.game_loop.basic import Game
 from game_asset import asset_init
-from game_scenes import scenes_load
+from game_scenes import scenes_data
 
 game = Game(
     title="Meu Jogo",
@@ -57,12 +56,12 @@ game = Game(
     screen_color=(30, 30, 40),
 )
 asset_init() #Carrega as imagens do jogo
+game.set_scene(scenes_data) #Trás as cenas para dentro do jogo
 
 
 game.run()
 """)
-    create_archives(base_dir / 'game_asset.py', """
-from pygame_go.manager.asset import asset
+    create_archives(base_dir / 'game_asset.py', """from pygame_go.manager.asset import asset
 
 def asset_init():
     #Instancia as imagens do jogo
@@ -72,19 +71,15 @@ def asset_init():
 
 
 
-    create_archives(base_dir / 'game_scenes.py', """
-from scenes.exemple import Exemple
+    create_archives(base_dir / 'game_scenes.py', """from scenes.exemple import Exemple
 
-def scenes_load():
-    scenes_data = {
-        'exemple': Exemple,
-    }
-    return scenes_data
+scenes_data = {
+    'exemple': Exemple,
+}
 
 """)
 
-    create_archives(base_dir / 'scenes' / 'exemple.py', """
-from pygame_go.scene import Scene
+    create_archives(base_dir / 'scenes' / 'exemple.py', """from pygame_go.scene import Scene
 
 class Exemple(Scene):
     def preload(self):
