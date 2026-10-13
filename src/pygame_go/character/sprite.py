@@ -48,7 +48,7 @@ class Flat(pygame.sprite.Sprite):
         self.time = Timeout(start=tick, loop=True)
         self.flattening = flattening
         self.update_image(name, size, flip, flattening)
-        self._updateAnimation()
+        self._update_animation()
 
 
     def update_image(self, name=None, size=None, flip=None, flattening=None):
@@ -87,7 +87,7 @@ class Flat(pygame.sprite.Sprite):
 
 
 
-    def _updateAnimation(self):
+    def _update_animation(self):
         """Atualizadno as imagens"""
         if self.time.update():
             if self.indexSprite == 0:
