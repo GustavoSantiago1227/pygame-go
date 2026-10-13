@@ -1,12 +1,30 @@
 from pathlib import Path
 
 
+
+def create_archives(file_dir, content=''):
+    # Arquivo principal do jogo
+
+    if not file_dir.exists():
+        file_dir.write_text(content, encoding="utf-8")
+
+def create_file_and_folder(base_dir, directories=None, packs=None):
+    """Cria pastas e arquivos """
+    for directory in directories:
+        path = base_dir / directory
+        path.mkdir(parents=True, exist_ok=True)
+
+        # Cria o __init__.py dentro da pasta script
+        if directory in packs:
+            init_file = path / "__init__.py"
+
+            if not init_file.exists():
+                init_file.write_text("", encoding="utf-8")
+
+
 def loading(root_path=None):
     """Cria a estrutura inicial de um projeto Pygame."""
-
     base_dir = Path(root_path or Path.cwd()).resolve()
-
-    # Pastas principais do projeto
     directories = [
         "asset",
         "sounds",
@@ -14,22 +32,14 @@ def loading(root_path=None):
         "factory",
         "scenes",
     ]
+    packs = [
+        'script',
+        'scene',
+    ]
+    create_file_and_folder(base_dir, directories, packs)
 
-    for directory in directories:
-        path = base_dir / directory
-        path.mkdir(parents=True, exist_ok=True)
-
-        # Cria o __init__.py dentro da pasta script
-        if directory == "script" or directory == 'scenes':
-            init_file = path / "__init__.py"
-
-            if not init_file.exists():
-                init_file.write_text("", encoding="utf-8")
-
-    # Arquivo principal do jogo
-    main_file = base_dir / "main.py"
-
-    main_content = """from pygame_go.game_loop.basic import Game
+    #Cria o main
+    create_archives(base_dir / 'main.py', """from pygame_go.game_loop.basic import Game
 
 game = Game(
     title="Meu Jogo",
@@ -42,12 +52,15 @@ game = Game(
 )
 
 game.run()
-"""
-    if not main_file.exists():
-        main_file.write_text(main_content, encoding="utf-8")
-        print("Arquivo criado: main.py")
-    else:
-        print("Arquivo já existe, mantido: main.py")
+""")
+    create_archives(base_dir / 'asset.py', """from pygame_go.manager.asset import asset
+
+def init():
+    #Instancia as imagens do jogo
+    asset.set_image({})    #Carrega imagens unicas
+    asset.set_frames({})   #Carrega uma lista de imagem
+""")
+
 
     print(f"Projeto preparado em: {base_dir}")
 
