@@ -4,7 +4,7 @@ import pygame
 class Body:
     def __init__(self):
         """Caixas de colisão ou o corpo do sprite"""
-        self.offSet = {
+        self.off_set = {
             'body': (0, 0),
             'hit': (0, 0),
             'hurt': (0, 0),
@@ -19,17 +19,17 @@ class Body:
     def setBody(self, x, y, w, h):
         """Define o retângulo e o deslocamento da caixa física principal"""
         self.body = pygame.Rect(0, 0, w, h)
-        self.offSet['body'] = (x, y)
+        self.off_set['body'] = (x, y)
 
     def setHit(self, x, y, w, h):
         """Define o retângulo e o deslocamento da caixa de ataque (hitbox)"""
         self.hit = pygame.Rect(0, 0, w, h)
-        self.offSet['hit'] = (x, y)
+        self.off_set['hit'] = (x, y)
 
     def setHurt(self, x, y, w, h):
         """Define o retângulo e o deslocamento da caixa de dano (hurtbox)"""
         self.hurt = pygame.Rect(0, 0, w, h)
-        self.offSet['hurt'] = (x, y)
+        self.off_set['hurt'] = (x, y)
 
     def _updateBody(self):
         """Atualiza as posições das caixas de colisão relativas ao topleft do sprite"""
@@ -38,18 +38,17 @@ class Body:
 
         x, y = self.rect.topleft
 
-        body_off = self.offSet.get('body', (0, 0))
-        hit_off = self.offSet.get('hit', (0, 0))
-        hurt_off = self.offSet.get('hurt', (0, 0))
+        body_off = self.off_set.get('body', (0, 0))
+        hit_off = self.off_set.get('hit', (0, 0))
+        hurt_off = self.off_set.get('hurt', (0, 0))
 
         self.body.topleft = (x + body_off[0], y + body_off[1])
         self.hit.topleft = (x + hit_off[0], y + hit_off[1])
         self.hurt.topleft = (x + hurt_off[0], y + hurt_off[1])
 
 class BodyCollider(pygame.Rect):
-    def __init__(self, x=0, y=0, w=0, h=0, rect=None):
-        if rect:
-            x, y, w, h = rect
+    def __init__(self, x=0, y=0, w=0, h=0):
+        self.off_set = (x, y)
         super().__init__(x, y, w, h)
 
         # Flags combináveis
@@ -127,6 +126,7 @@ class BodyCollider(pygame.Rect):
         if hasattr(sprite, 'rect') and sprite.rect != hit_box:
             # Mantém a proporção de centro ou alinha o topleft dependendo de como você estrutura
             sprite.rect.topleft = hit_box.topleft
+
 
 
 class Collider(pygame.Rect): pass
