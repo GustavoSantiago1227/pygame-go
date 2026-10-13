@@ -37,7 +37,7 @@ def loading(root_path=None):
     ]
     packs = [
         'script',
-        'scene',
+        'scenes',
     ]
     create_file_and_folder(base_dir, directories, packs)
 
