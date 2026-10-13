@@ -2,6 +2,9 @@ from pathlib import Path
 
 
 
+
+
+
 def create_archives(file_dir, content=''):
     # Arquivo principal do jogo
 
@@ -39,7 +42,9 @@ def loading(root_path=None):
     create_file_and_folder(base_dir, directories, packs)
 
     #Cria o main
-    create_archives(base_dir / 'main.py', """from pygame_go.game_loop.basic import Game
+    create_archives(base_dir / 'main.py', """
+from pygame_go.game_loop.basic import Game
+from game_asset import asset_init
 
 game = Game(
     title="Meu Jogo",
@@ -50,15 +55,41 @@ game = Game(
     debug=True,
     screen_color=(30, 30, 40),
 )
+asset_init() #Carrega as imagens do jogo
+
 
 game.run()
 """)
-    create_archives(base_dir / 'asset.py', """from pygame_go.manager.asset import asset
+    create_archives(base_dir / 'game_asset.py', """
+from pygame_go.manager.asset import Asset
 
-def init():
+asset = Asset()
+
+def asset_init():
     #Instancia as imagens do jogo
     asset.set_image({})    #Carrega imagens unicas
     asset.set_frames({})   #Carrega uma lista de imagem
+""")
+
+
+
+    create_archives(base_dir / 'game_scenes.py', """
+from scene.exemple import Exemple
+
+def game_scenes():
+    scenes_data = {
+        'exemple': Exemple,
+    }
+    return scenes_data
+
+""")
+
+    create_archives(base_dir / 'scenes' / 'exemple.py', """
+from pygame_go.scene import Scene
+
+class Exempple(Scene):
+    def preload(self):
+        pass
 """)
 
 

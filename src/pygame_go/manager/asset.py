@@ -120,7 +120,3 @@ class Asset:
         self.static.clear()
         self.animation.clear()
         self._cache.clear()
-
-
-# Instância global compartilhada pela biblioteca.
-asset = Asset()
