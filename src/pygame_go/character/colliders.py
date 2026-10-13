@@ -100,15 +100,9 @@ class Floor(Solid):
 
 
 class OneWay(Floor):
-    def resolve_overlap_y(self, body, target, sprite):
-        if target.centery < body.centery:
-            sprite.rect.bottom = body.top
-            result = 'bottom'
-        else:
-            if not getattr(sprite, 'in_jump', False):
-                sprite.rect.top = body.bottom
-            result = 'top'
-        return result
+    def collider(self, sprite):
+        if not getattr(sprite, 'in_jump', False):
+            super().collider(sprite)
 
 
 
