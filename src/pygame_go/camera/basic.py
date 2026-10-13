@@ -42,14 +42,14 @@ class Camera:
 
         self.rect.topleft = (round(self.x), round(self.y))
 
-    def draw(self):
+    def draw(self, screen):
         """Desenha os sprites"""
         for group in self.groups:
             for sprite in group:
                 if not self.rect.colliderect(sprite.rect):
                     continue
 
-                self.screen.blit(
+                screen.blit(
                     sprite.image,
                     (
                         round(sprite.rect.x - self.x),
