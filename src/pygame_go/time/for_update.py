@@ -5,6 +5,12 @@ class Timeout:
         self.current = start
         self._loop = loop
 
+    def set(self, start, loop, reset=False):
+        self._start = start
+        self._loop = loop
+        if reset:
+            self.current = self._start
+
     def update(self,):
         """Atualização do temporizador"""
 
