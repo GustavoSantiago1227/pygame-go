@@ -34,6 +34,7 @@ def loading(root_path=None):
         "script",
         "factory",
         "scenes",
+        "fonts",
     ]
     packs = [
         'script',
