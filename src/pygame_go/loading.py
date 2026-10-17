@@ -61,7 +61,7 @@ game = Game(
     screen_color=(30, 30, 40),
 )
 asset_init() #Carrega as imagens do jogo
-asset_init() #Carrega as fonsts do jogo
+fonts_init() #Carrega as fonsts do jogo
 game.set_scene(scenes_data) #Trás as cenas para dentro do jogo
 game.load('exemple') #Carrega a cena de exemplo
 game.run()
