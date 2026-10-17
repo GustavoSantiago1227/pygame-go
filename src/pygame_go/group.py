@@ -11,7 +11,7 @@ class _BaseGroupManager:
         """Adiciona o sprite a um grupo com base no nome."""
         if name not in self.tags:
             self.tags[name] = self._group_type()
-        self.tags[name].add_internal_font(sprite)
+        self.tags[name]._add_internal_font(sprite)
 
     def update(self, *args, **kwargs):
         """Atualiza todos os grupos gerenciados."""

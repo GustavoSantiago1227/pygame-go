@@ -17,13 +17,27 @@ class Font:
             print(font)
 
 
-    def add_internal_font(self, id_font='defualt', name_font=None, size=36):
+    def _add_internal_font(self, id_font='defualt', name_font=None, size=36):
         """Adiciona uma fonte do proprio sistema"""
         self._data[id_font] = pygame.font.SysFont(name_font, size)
 
-    def add_external_font(self, id_font='defualt', file_font=None, size=36):
+    def _add_external_font(self, id_font='defualt', file_font=None, size=36):
         """Adiciona uma fonte externa"""
         self._data[id_font] = pygame.font.Font(str(self.base_directory / file_font), size)
+
+    def set_fonts(self, data):
+        """Configura as fonsts do jogo"""
+        for key, value in data.items():
+            font, size = value
+            try:
+
+                self._add_external_font(key,font, size)
+            except:
+                try:
+                    self._add_external_font(key, font, size)
+                except:
+                    print(f"Falha ao carregar a fonte [{key}]")
+
 
 
     def set_id_defualt(self, id_font='defualt'):
