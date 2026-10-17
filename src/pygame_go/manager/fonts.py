@@ -54,9 +54,10 @@ class Font:
         return self._data[id_font].render(text, True, color)
 
 
-    def draw_text(self, screen, pos, text, color, id_font):
+    def draw_text(self, screen, pos, text, color, id_font=None):
         """Já desenha o texto na tela automaticamente"""
-        text = self.write(text.text, color, id_font)
+        id_font = id_font if id_font else self._id_defualt
+        text = self.write(text, color, id_font)
         screen.blit(text, pos)
 
 fonts = Font()
