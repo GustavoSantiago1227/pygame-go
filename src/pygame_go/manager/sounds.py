@@ -9,7 +9,7 @@ class Sound:
       pygame.mixer.init()
 
     # Sua base configurada com pathlib
-    self.base_directory = (Path.cwd() / "sound").resolve()
+    self.base_directory = (Path.cwd() / "sounds").resolve()
     self.base_directory.mkdir(parents=True, exist_ok=True)
 
     self.unique = {}
@@ -90,7 +90,7 @@ class Music:
       pygame.mixer.init()
 
     # Sua base configurada com pathlib
-    self.base_directory = (Path.cwd() / "sound").resolve()
+    self.base_directory = (Path.cwd() / "sounds").resolve()
     self.base_directory.mkdir(parents=True, exist_ok=True)
 
     self.playlist = {}
