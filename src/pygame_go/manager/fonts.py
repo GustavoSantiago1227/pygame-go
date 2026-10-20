@@ -26,7 +26,6 @@ class Font:
         self._data[id_font] = pygame.font.Font(str(self.base_directory / file_font), size)
 
     def set_fonts(self, data):
-        print(data)
         """Configura as fonsts do jogo"""
         for key, value in data.items():
             font, size = value

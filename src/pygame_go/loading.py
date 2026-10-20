@@ -3,8 +3,6 @@ from pathlib import Path
 
 
 
-
-
 def create_archives(file_dir, content=''):
     # Arquivo principal do jogo
 
@@ -50,6 +48,7 @@ def loading(root_path=None):
 from game_asset import asset_init
 from game_scenes import scenes_data
 from game_fonts import fonts_init
+from game_sound import sound_init
 
 game = Game(
     title="Meu Jogo",
@@ -117,6 +116,21 @@ def fonts_init():
     fonts.set_fonts({}) 
     """
 )
+
+    create_archives(base_dir / 'game_sound.py', """from pygame_go.manager.sounds import sound, music
+
+def sound_init():
+    #Sons unicos
+    sound.set_sound({})
+    
+    #Recebe um grupo de sons
+    sound.set_group({})
+
+def music_init():
+    #Carrega musicas
+    music.set({})
+
+""")
 
 
 
