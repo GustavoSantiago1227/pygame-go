@@ -134,6 +134,8 @@ def music_init():
 
 """)
 
+    create_archives(base_dir / 'game_constant.py', '#Constants in game')
+
 
 
     print(f"Projeto preparado em: {base_dir}")
